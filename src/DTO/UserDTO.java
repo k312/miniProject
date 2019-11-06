@@ -36,6 +36,19 @@ public class UserDTO {
 	public void setResidence(int residence) {
 		this.residence = residence;
 	}
-	
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("UserDTO [id=");
+		builder.append(id);
+		builder.append(", password=");
+		builder.append(password);
+		builder.append(", residence=");
+		builder.append(residence);
+		builder.append("]");
+		return builder.toString();
+	}	
 
 }

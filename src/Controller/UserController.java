@@ -1,6 +1,7 @@
 package Controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import DTO.UserDTO;
 import service.UserService;
@@ -46,7 +47,7 @@ public class UserController {
       String myResidence = null;
       try {
          myResidence = service.myResidence(id);
-         SuccessView.printMessage(id+"님의 거주지는 "+myResidence+"입니다. ");
+         SuccessView.printMessage("\n"+id+"님의 거주지는 "+myResidence+"입니다."+"\n\n");
       } catch (SQLException e) {
          e.printStackTrace();
       }
@@ -59,7 +60,7 @@ public class UserController {
       
       try {
          securityGrade = service.checkSecurity(residence);
-         SuccessView.printMessage(securityGrade);
+         SuccessView.printMessage("\n"+"당신 거주지의 치안등급은 " +securityGrade+"등급 입니다."+"\n\n");
       }catch (SQLException e) {
          FailView.printFailMessage(e.getMessage());
       }
@@ -73,7 +74,7 @@ public class UserController {
       
       try {
          result = service.changeResidence(id, residence);
-         SuccessView.printMessage("전출 신고가 완료되었습니다.");
+         SuccessView.printMessage("\n"+"전출 신고가 완료되었습니다."+"\n\n");
          }catch (SQLException e) {
             FailView.printFailMessage(e.getMessage());
          }
@@ -82,9 +83,39 @@ public class UserController {
       
    }
 
-   public String checkDetail(String id){
-      return null;
+   public void checkDetail(String id){
+	   String message = null;
+	   
+	   try {
+		   message = service.checkDetail(id);
+		   SuccessView.printMessage("\n"+id+"님의 상세정보 : "+message+"\n\n");
+	   }catch (SQLException e) {
+		   FailView.printFailMessage(e.getMessage());
+	}
       
+   }
+   /////////////////////////
+   public void selectAll() {
+	      List<UserDTO> list = null;
+	      try {
+	         list = service.selectAll();
+	         for(UserDTO dto : list) {
+	            SuccessView.printUserInfo(dto);
+	         }
+	         
+	      }catch (SQLException e) {
+	      FailView.printFailMessage(e.getMessage());
+	   }
+   }
+   
+   public void deleteID(String id) {
+	   int result = 0;
+	   try {
+		   result = service.deleteID(id);
+		   SuccessView.printMessage("계정삭제 성공");
+	   }catch (SQLException e) {
+		FailView.printFailMessage(e.getMessage());
+	}
    }
    
 }

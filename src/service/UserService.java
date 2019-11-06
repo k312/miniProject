@@ -1,6 +1,7 @@
 package service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import DTO.UserDTO;
 
@@ -35,4 +36,8 @@ public interface UserService {
 	 * 지역 치안 상황 상세보기
 	 * */
 	String checkDetail(String id) throws SQLException;
+	
+	List<UserDTO> selectAll() throws SQLException;
+	
+	int deleteID(String id) throws SQLException;
 }

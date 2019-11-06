@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import DTO.UserDTO;
 
@@ -47,7 +48,8 @@ public interface UserDAO {
 	String checkDetail(String id) throws SQLException;
 	
 	
-	
+	List<UserDTO> selectAll() throws SQLException;
 
+	int deleteID(String id) throws SQLException;
 	
 }

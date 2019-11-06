@@ -1,6 +1,7 @@
 package service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import DAO.UserDAO;
 import DAO.UserDAOImpl;
@@ -12,7 +13,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO signUp(String id, String password, int residence) throws SQLException {
 		UserDTO dto = dao.signUp(id, password, residence);
-		if(dto.getId().equals(id)) {
+		if(dto== null) {
 			throw new SQLException("이미 가입된 아이디 입니다.");
 		}		
 		return dto;
@@ -61,10 +62,32 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String checkDetail(String id) throws SQLException {
-		return null;
+		String result = dao.checkDetail(id);
+		if(result == null) throw new SQLException("상세정보가 검색되지 않았습니다.");
+		return result;
 		
 	}
+	
+	
+	public List<UserDTO> selectAll() throws SQLException{
+	      List<UserDTO> list = null;
+	      
+	   
+	      list = dao.selectAll();
+	      if(list == null || list.isEmpty()) {
+	         throw new SQLException("검색된 레코드가 없습니다.");
+	      }
 
+	      return list;
+	      
+	   }
 
+	public int deleteID(String id) throws SQLException{
+		int result = dao.deleteID(id);
+		
+		if(result == 0) throw new  SQLException("삭제된 계정이 없습니다.");
+		return result;
+		
+	}
 
 }
