@@ -1,0 +1,53 @@
+package DAO;
+
+import java.sql.SQLException;
+
+import DTO.UserDTO;
+
+public interface UserDAO {
+	/**
+	 * 회원가입하기
+	 * "insert into USERINFO(id, password, residence) values(?, ?, ?)"
+	 * 
+	 */
+	UserDTO signUp(String id, String password, int residence) throws SQLException;
+	
+	/**
+	 * 로그인하기
+	 */
+	
+	UserDTO logIn(String id, String password);
+	
+	/**
+	 * 내 거주지 검색
+	 * "select RESIDENCE from USERINFO where id = 'id'"
+	 */
+	
+	String myResidence(String id) throws SQLException;
+	
+	
+	/**
+	 * 치안등급 확인
+	 * "select RESPONSIBILITY from POLICE where xxx"
+	 * 
+	 */
+	
+	int checkSecurity(int residence) throws SQLException;
+	
+	/**
+	 * 거주지 변경
+	 */
+	
+	void changeResidence(String id) throws SQLException;
+	
+	/**
+	 * 치안등급 세부내용 확인
+	 */
+	
+	UserDTO checkDetail(String id) throws SQLException;
+	
+	
+	
+
+	
+}
