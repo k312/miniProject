@@ -11,13 +11,16 @@ public class MainView {
 	
 	UserController controller = new UserController(); //컨트롤러 생성;
 	
+	UserDTO account;
+	
 	public MainView() {
 		
 		String choice = null;
 		
 		do {
+			System.out.println();
 			System.out.println("**치안 검색 시스템에 접속하신것을 환영합니다~**");
-			System.out.print("1. 로그인		2. 회원가입");
+			System.out.println("1. 로그인		2. 회원가입");
 			choice = scn.next();
 
 			switch (choice) {
@@ -49,9 +52,9 @@ public class MainView {
 		/**
 		 * 그리고 컨트롤러 부르기
 		 * */
-		UserDTO info = controller.logIn(id, password);
+		account = controller.logIn(id, password);
 				
-		if(info != null) {
+		if(account != null) {
 			this.serviceCoice(id);
 		}
 
@@ -84,61 +87,76 @@ public class MainView {
 		System.out.println("15.경북 ");
 		System.out.println("16.경남 ");
 		System.out.println("17.제주 ");
-		String res = scn.next();
+		int res = scn.nextInt();
 
 		/**
 		 * 그리고 컨트롤러 부르기
 		 *signUp
 		 * */
+		controller.signUp(id, password, res);
+		
 		
 		this.serviceCoice(id);
 		
 	}
 	
 	public void serviceCoice(String id) {
-		System.out.println(id+"님 환영합니다!");
 		
-		System.out.println("1. 내 거주지 확인하기");
-		System.out.println("2. 거주지 치안 등급 확인");
-		System.out.println("3. 전출 신고하기(거주지 변경)");
-		System.out.println("4. 치안 관련 데이터 수정");
-		System.out.println("5. 프로그램 종료");
-		String choice = scn.next();
-		
-		switch (choice) {
-		case "1":
-			//내 거주지 확인하기
-			break;
-
-		case "2":
-			//거주지 치안 등급 확인
-			break;
-
-		case "3":
-			//전출 신고하기(거주지 변경)
-			break;
+		while(true) {
+			System.out.println();
+			System.out.println(id+"님 환영합니다!");
 			
-		case "4":
-			//치안 관련 데이터 수정
-			break;
+			System.out.println("1. 내 거주지 확인하기");
+			System.out.println("2. 거주지 치안 등급 확인");
+			System.out.println("3. 전출 신고하기(거주지 변경)");
+			System.out.println("4. 치안 관련 데이터 수정");
+			System.out.println("5. 프로그램 종료");
+			String choice = scn.next();
 			
-		case "5":
-			//프로그램 종료
-			break;
+			switch (choice) {
+			case "1":
+				//내 거주지 확인하기
+				controller.myResidence(id);
+				break;
+
+			case "2":
+				//거주지 치안 등급 확인
+				controller.checkSecurity(account.getResidence());
+				break;
+
+			case "3":
+				//전출 신고하기(거주지 변경)
+				controller.changeResidence(account.getId(), account.getResidence());
+				break;
+				
+			case "4":
+				//치안 관련 데이터 수정
+				System.out.println("실수 ㅎㅎ");
+				break;
+				
+			case "5":
+				//프로그램 종료
+				System.exit(0);
+				break;
+			}
+			
+			printQuestion();
+			String ch = scn.next();
+			
+			switch (ch) {
+			case "1":
+				//초기화면으로 돌아가기
+				break;
+
+			case "2":
+				//종료
+				System.out.println();
+				System.out.println("프로그램을 종료합니다.");
+				System.exit(0);
+				break;
+			}
 		}
 		
-		printQuestion();
-		String ch = scn.next();
-		
-		switch (ch) {
-		case "1":
-			//초기화면으로 돌아가기
-			break;
-
-		case "2":
-			//종료
-			break;
-		}
 		
 		
 	}

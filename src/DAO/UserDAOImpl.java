@@ -14,7 +14,7 @@ public class UserDAOImpl implements UserDAO {
 	public UserDTO signUp(String id, String password, int residence) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "insert into userinfo values(id, password, residence)";
+		String sql = "insert into userinfo values(upper(id), password, residence)";
 		UserDTO dto = null;
 		int result = 0;
 		
@@ -46,14 +46,14 @@ public class UserDAOImpl implements UserDAO {
 			ps.setString(2, password);
 			
 			rs = ps.executeQuery();
+			while(rs.next()) {
+				String rid = rs.getString(1);
+				String rpassword = rs.getString(2);
+				String rresidence = rs.getString(3);
+				
+				dto = new UserDTO(rid, rpassword, Integer.parseInt(rresidence));
+			}
 			
-			String rid = rs.getString("userid");
-			String rpassword = rs.getString("password");
-			String rresidence = rs.getString("residence");
-			
-			
-			
-			dto = new UserDTO(rid, rpassword, Integer.parseInt(rresidence));
 			
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -68,7 +68,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "select cn.intendance from userinfo ui join crimeno cn on ui.userresidence = cn.pkno where ui.userid = ?";//두 테이블을 조인해서 가져와야함
-		
+		String result = null;
 		
 		try {
 			con = DbUtil.getConnection();
@@ -76,14 +76,18 @@ public class UserDAOImpl implements UserDAO {
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			
+			while(rs.next()) {
+				result = rs.getString(1);
+			}
+			
 			
 			
 			
 		}finally {
-			
+			DbUtil.dbClose(con, ps, rs);
 		}
 		
-		return rs.getString(1);
+		return result;
 	}
 
 	@Override
@@ -91,17 +95,23 @@ public class UserDAOImpl implements UserDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select responsbility from police where ?";
+		String sql = "SELECT P.RESPONSBILITY\r\n" + 
+				"FROM CRIMENO CN JOIN POLICE P\r\n" + 
+				"ON CN.INTENDANCE = p.intendance\r\n" + 
+				"WHERE CN.PKNO = ?";
 		int responsbility = 0;
 		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
+		
 			ps.setInt(1, residence);
 			
 			rs = ps.executeQuery();
+			while(rs.next()) {
+				responsbility = rs.getInt(1);
+			}
 			
-			responsbility = rs.getInt(1);
 			
 		}finally {
 			DbUtil.dbClose(con, ps);
