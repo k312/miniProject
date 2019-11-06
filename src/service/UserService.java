@@ -2,17 +2,19 @@ package service;
 
 import java.sql.SQLException;
 
+import DTO.UserDTO;
+
 public interface UserService {
 	
 	/**
 	 * 회원가입
 	 * */
-	UserDTO signUP(String id, String password, int residence) throws SQLException;
+	UserDTO signUp(String id, String password, int residence) throws SQLException;
 	
 	/**
 	 * 로그인
 	 * */
-	UserDTO logIn(String id, String password, int residence);
+	UserDTO logIn(String id, String password)throws SQLException;
 	
 	/**
 	 * 나의 거주지 검색
@@ -27,10 +29,10 @@ public interface UserService {
 	/**
 	 * 거주지 전출신고
 	 * */
-	void changeResidence(String id) throws SQLException;
+	int changeResidence(String id, int residence) throws SQLException;
 	
 	/**
 	 * 지역 치안 상황 상세보기
 	 * */
-	UserDTO checkDetail(String id) throws SQLException;
+	String checkDetail(String id) throws SQLException;
 }

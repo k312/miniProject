@@ -16,7 +16,7 @@ public interface UserDAO {
 	 * 로그인하기
 	 */
 	
-	UserDTO logIn(String id, String password);
+	UserDTO logIn(String id, String password) throws SQLException;
 	
 	/**
 	 * 내 거주지 검색
@@ -38,13 +38,13 @@ public interface UserDAO {
 	 * 거주지 변경
 	 */
 	
-	void changeResidence(String id) throws SQLException;
+	int changeResidence(String id, int residence) throws SQLException;
 	
 	/**
 	 * 치안등급 세부내용 확인
 	 */
 	
-	UserDTO checkDetail(String id) throws SQLException;
+	String checkDetail(String id) throws SQLException;
 	
 	
 	

@@ -3,14 +3,14 @@ package DTO;
 public class UserDTO {
 	private String id;
 	private String password;
-	private String residence;
+	private int residence;
 	
 	
 	
 	public UserDTO() {}
 	
 	
-	public UserDTO(String id, String password, String residence) {
+	public UserDTO(String id, String password, int residence) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -30,10 +30,10 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getResidence() {
+	public int getResidence() {
 		return residence;
 	}
-	public void setResidence(String residence) {
+	public void setResidence(int residence) {
 		this.residence = residence;
 	}
 	

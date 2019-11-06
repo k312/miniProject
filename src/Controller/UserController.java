@@ -12,7 +12,7 @@ public class UserController {
 	private UserService service = new UserServiceImpl();
 	
 
-	public UserDTO signUp(String id, String password, int residence) throws SQLException {
+	public UserDTO signUp(String id, String password, int residence){
 		UserDTO dto = null;
 		
 		try{
@@ -27,7 +27,7 @@ public class UserController {
 
 
 	
-	public UserDTO logIn(String id, String password) throws SQLException {
+	public UserDTO logIn(String id, String password) {
 		UserDTO dto = service.logIn(id, password);
 		
 		try{
@@ -41,13 +41,13 @@ public class UserController {
 	}
 
 
-	public String myResidence(String id) throws SQLException {
+	public String myResidence(String id){
 		return service.myResidence(id);
 		
 	}
 
 
-	public String checkSecurity(int residence) throws SQLException {
+	public String checkSecurity(int residence){
 		String securityGrade = null;
 		
 		try {
@@ -61,7 +61,7 @@ public class UserController {
 	}
 
 
-	public int changeResidence(String id, int residence) throws SQLException {
+	public int changeResidence(String id, int residence){
 		int result = 0;
 		
 		try {
@@ -75,7 +75,7 @@ public class UserController {
 		
 	}
 
-	public String checkDetail(String id) throws SQLException {
+	public String checkDetail(String id){
 		return null;
 		
 	}

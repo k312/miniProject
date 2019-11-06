@@ -2,11 +2,14 @@ package view;
 
 import java.util.Scanner;
 
+import Controller.UserController;
 import DTO.UserDTO;
 
 public class MainView {
 	
 	Scanner scn = new Scanner(System.in);
+	
+	UserController controller = new UserController(); //컨트롤러 생성;
 	
 	public MainView() {
 		
@@ -46,10 +49,10 @@ public class MainView {
 		/**
 		 * 그리고 컨트롤러 부르기
 		 * */
-		UserDTO info =;
+		UserDTO info = controller.logIn(id, password);
 				
 		if(info != null) {
-			System.out.println(id+"님 환영합니다!");
+			this.serviceCoice(id);
 		}
 
 		
@@ -85,8 +88,64 @@ public class MainView {
 
 		/**
 		 * 그리고 컨트롤러 부르기
+		 *signUp
 		 * */
 		
+		this.serviceCoice(id);
+		
+	}
+	
+	public void serviceCoice(String id) {
+		System.out.println(id+"님 환영합니다!");
+		
+		System.out.println("1. 내 거주지 확인하기");
+		System.out.println("2. 거주지 치안 등급 확인");
+		System.out.println("3. 전출 신고하기(거주지 변경)");
+		System.out.println("4. 치안 관련 데이터 수정");
+		System.out.println("5. 프로그램 종료");
+		String choice = scn.next();
+		
+		switch (choice) {
+		case "1":
+			//내 거주지 확인하기
+			break;
+
+		case "2":
+			//거주지 치안 등급 확인
+			break;
+
+		case "3":
+			//전출 신고하기(거주지 변경)
+			break;
+			
+		case "4":
+			//치안 관련 데이터 수정
+			break;
+			
+		case "5":
+			//프로그램 종료
+			break;
+		}
+		
+		printQuestion();
+		String ch = scn.next();
+		
+		switch (ch) {
+		case "1":
+			//초기화면으로 돌아가기
+			break;
+
+		case "2":
+			//종료
+			break;
+		}
+		
+		
+	}
+	
+	public void printQuestion() {
+		System.out.println("초기화면으로 돌아가기는 1번");
+		System.out.println("종료는 2번을 눌러주세요.");
 	}
 
 }
